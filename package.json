@@ -21,6 +21,6 @@
   "scripts": {
     "init": "prisma db push && prisma db seed",
     "dev": "ts-node ./sandbox.ts",
-    "build": "PRISMA_CLIENT_ENGINE_TYPE='dataproxy' prisma generate"
+    "generate": "PRISMA_CLIENT_ENGINE_TYPE='dataproxy' prisma generate"
   }
 }
