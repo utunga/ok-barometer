@@ -3,12 +3,14 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["dataProxy"]
+  previewFeatures = ["dataproxy", "referentialIntegrity"]
 }
 
 datasource db {
-  provider = "postgres"
-  url      = env("DATABASE_URL")
+  provider             = "postgres"
+  url                  = env("DATABASE_URL")
+  shadowDatabaseUrl    = env("DATABASE_MIGRATE_URL")
+  referentialIntegrity = "prisma"
 }
 
 model Link {

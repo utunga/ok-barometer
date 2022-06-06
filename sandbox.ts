@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
-
+console.log('here: ')
 const main = async () => {
   const users = await prisma.user.findMany({
     where: {
