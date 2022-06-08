@@ -32,10 +32,11 @@ const data = Array.from({ length: NUMBER_OF_USERS }).map(() => ({
 }))
 
 async function main() {
-  for (let label of moods) {
+  for (let i=0;i<moods.length;i++) {
     await prisma.mood.create({
       data: {
-        label: label
+        idx: i,
+        label: moods[i]
       },
     })
   }
@@ -44,21 +45,11 @@ async function main() {
       data: {
         name: entry.name,
         email: entry.email,
-        measures: { 
-          create: entry.measures.map(mood => {
-            return {
-              measure: {
-                connect: {
-                  label: mood
-                }
-              }
-            }
-          }
-        }
-      },
+      }
     })
   }
 }
+
 
 main().finally(async () => {
   await prisma.$disconnect()
