@@ -10,6 +10,12 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     const { id } = req.query as VercelRequestQuery
     const prisma = new PrismaClient()
 
+    // set CORS headers to allow any orgin
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.setHeader('Access-Control-Allow-Credentials', "true");
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, OPTIONS, DELETE');
+
     console.log(
       '[measure] Incoming request:',
       JSON.stringify(
@@ -45,12 +51,19 @@ export default async function (req: VercelRequest, res: VercelResponse) {
             data: req.body as Prisma.MeasureUpdateInput,
           }),
         )
+
       case 'DELETE':
         return res.json(
           await prisma.measure.delete({
             where: { id },
           }),
         )
+
+      case 'OPTIONS':
+        return res.status(200).json(({
+            body: "OK"
+          })
+        )  
     }
 
     return res
