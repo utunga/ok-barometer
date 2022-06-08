@@ -4,29 +4,21 @@
 
 ## Deployment the old fashioned way 
 
-If the magic 'deploy' button doesn't work. Try installing vercel and deploying it from command line this way. 
+If the magic 'deploy' button (should be above) doesn't work you can try deploying it from command line, this way. 
 
 
 
 ```
 ❯ git clone https://github.com/utunga/ok-barometer.git
 Cloning into 'ok-barometer'...
-remote: Enumerating objects: 87, done.
-remote: Counting objects: 100% (87/87), done.
-remote: Compressing objects: 100% (65/65), done.
-remote: Total 87 (delta 38), reused 53 (delta 17), pack-reused 0
-Receiving objects: 100% (87/87), 386.77 KiB | 1.19 MiB/s, done.
-Resolving deltas: 100% (38/38), done.
 ```
 
 Spin up a postgres db and create/edit the .env file in prisma folder to set the following properties..
 
-````
-
+```
 DATABASE_URL="postgres://user:pass@c2-1-22-33-129.compute-1.amazonaws.com:5432/gcedfg"
 
 DATABASE_MIGRATE_URL="postgres://user:pass@ec2-1-22-33-129.compute-1.amazonaws.com:5432/abcdef"
-
 ```
 
 
@@ -37,12 +29,9 @@ Deploy using vercel
 ❯ npm i -g vercel@24.2.5-canary.2
 ❯ vercel
 Vercel CLI 24.2.5-canary.2 — https://vercel.com/feedback
-```
-
-The first time you run this you will have to setup a (free) Vercel account and authenticate it to your command line 
-
-````
-...
+..
+.. (The first time you run this you will have to setup a (free) Vercel account and authenticate it to your command line)
+..
 ? Set up and deploy “~/dev/scratch/ok-barometer”? [Y/n] y
 ? Which scope do you want to deploy to? xxx
 ? What’s your project’s name? test-deploy
