@@ -1,19 +1,61 @@
-# URL Shortener
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/import?repository-url=https%3A%2F%2Fgithub.com%2Futunga%2Fok-barometer&env=DATABASE_URL,DATABASE_MIGRATE_URL,PRISMA_CLIENT_ENGINE_TYPE&envDescription=Database%20connection%20strings%20your%20app%20depends%20on.%20You%20should%20switch%20back%20to%20the%20Prisma%20Data%20Platform%20to%20figure%20out%20what%20values%20to%20input%20here.)<br />
+# OK Barometer
 
-![Database diagram](https://raw.githubusercontent.com/prisma/prisma-schema-examples/main/URL%20Shortener/diagram.png)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/import?repository-url=https%3A%2F%2Fgithub.com%2Futunga%2Fok-barometer&env=DATABASE_URL,DATABASE_MIGRATE_URL,PRISMA_CLIENT_ENGINE_TYPE&envDescription=Database%20connection%20strings%20your%20app%20depends%20on.%20You%20should%20switch%20back%20to%20the%20Prisma%20Data%20Platform%20to%20figure%20out%20what%20values%20to%20input%20here.)
 
-(Generated via https://github.com/notiz-dev/prisma-dbml-generator + https://dbdiagram.io)
+## Deployment the old fashioned way 
 
-### Setting this project up locally
+If the magic 'deploy' button doesn't work. Try installing vercel and deploying it from command line this way. 
 
-Once you clone your repo, you'll want to set up this repo for local development. In order to start using Prisma locally, you need to make Prisma aware of your database. The most portable way to do this is to use environment variables via a `.env` file.
 
-1. You'll see that your Prisma Schema file (at `prisma/schema.prisma`) is already configured to use an environment variable called `DATABASE_URL`. [Read more about environment variables in Prisma](https://www.prisma.io/docs/concepts/more/environment-variables)
-2. You'll need a database to connect to. You may use the same one you used while setting this project up on the Prisma Data Platform, but we recommend setting up a local database and use that during development. If you're new to databases, we recommend [reading up](https://www.prisma.io/dataguide/) on them. This guide also has instructions on how to set up a local database.
-3. Once you have a locally accessible database connection string, create a new file called `.env` in the `prisma` directory, and populate it with: `DATABASE_URL="<replace-me-with-your-connection-string>"`. Prisma will automatically pick up the environment variable used in the schema and use its value to connect to your database.
-4. Now you can run `npm run init` to set up your local database. This will create tables corresponding to models in your Prisma Schema and populate them with fake data for you to play around with.
-   - [Read more about the Prisma Schema](https://www.prisma.io/docs/concepts/components/prisma-schema)
-   - [Read more about database seeding](https://www.prisma.io/docs/guides/database/seed-database)
 
-To learn more about Prisma, we recommend reading through our [Getting Started guide](https://www.prisma.io/docs/getting-started)
+```
+❯ git clone https://github.com/utunga/ok-barometer.git
+Cloning into 'ok-barometer'...
+remote: Enumerating objects: 87, done.
+remote: Counting objects: 100% (87/87), done.
+remote: Compressing objects: 100% (65/65), done.
+remote: Total 87 (delta 38), reused 53 (delta 17), pack-reused 0
+Receiving objects: 100% (87/87), 386.77 KiB | 1.19 MiB/s, done.
+Resolving deltas: 100% (38/38), done.
+```
+
+Spin up a postgres db and create/edit the .env file in prisma folder to set the following properties..
+
+````
+
+DATABASE_URL="postgres://user:pass@c2-1-22-33-129.compute-1.amazonaws.com:5432/gcedfg"
+
+DATABASE_MIGRATE_URL="postgres://user:pass@ec2-1-22-33-129.compute-1.amazonaws.com:5432/abcdef"
+
+```
+
+
+Deploy using vercel
+
+```
+❯ cd ok-barometer
+❯ npm i -g vercel@24.2.5-canary.2
+❯ vercel
+Vercel CLI 24.2.5-canary.2 — https://vercel.com/feedback
+```
+
+The first time you run this you will have to setup a (free) Vercel account and authenticate it to your command line 
+
+````
+...
+? Set up and deploy “~/dev/scratch/ok-barometer”? [Y/n] y
+? Which scope do you want to deploy to? xxx
+? What’s your project’s name? test-deploy
+? In which directory is your code located? ./
+No framework detected. Default Project Settings:
+- Build Command: `npm run vercel-build` or `npm run build`
+- Output Directory: `public` if it exists, or `.`
+- Development Command: None
+? Want to override the settings? [y/N] n
+🔗  Linked to utunga/test-deploy (created .vercel)
+🔍  Inspect: https://vercel.com/utunga/test-deploy/lsdalkjasd [1s]
+✅  Production: https://test-deploy-just-testing.vercel.app [copied to clipboard] [43s]
+📝  Deployed to production. Run `vercel --prod` to overwrite later (https://vercel.link/2F).
+💡  To change the domain or build command, go to https://vercel.com/utunga/test-deploy/settings
+```
+
