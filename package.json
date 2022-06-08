@@ -13,6 +13,7 @@
     "npm-bin": "^0.1.0",
     "swagger-codegen": "^0.1.1",
     "swagger-jsdoc": "^6.2.1",
+    "swagger-to-static": "^1.1.0",
     "swagger-ui-express": "^4.4.0"
   },
   "devDependencies": {
