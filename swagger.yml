@@ -3,22 +3,20 @@ info:
   description: "A super simple REST API to make development a bit easier."
   version: "1.0.0"
   title: "OK Barometer API"
-  termsOfService: "http://swagger.io/terms/"
   contact:
     email: "utunga@gmail.com"
 tags:
-- name: users
-  description: users API
+- name: api/user
+  description: Users
 
 paths:
 # [GET] user
   /api/user:
-
-
     get:
       tags:
       - api/user
       summary: Find User By Id or Return All Users
+      description: View all users in your browser [here](/api/user). <br /><br/> Please note the presence of extra json for {"id","createdAt","updatedAt"}. You can use updatedAt as a time based measure. 
       parameters:
       - name: id
         in: query
@@ -102,6 +100,188 @@ paths:
         500:
           description: 'Server Error'
 
+
+# [GET] mood
+  /api/mood:
+    get:
+      tags:
+      - api/mood
+      summary: Find Mood By Id or Return All Moods
+      description: Currently the available moods are (in order) "desolate", "dispirited", "sad", "quiet", "ok", "lively", "energized", "hysterical" View the current moods in your browser [here](/api/mood). <br /><br/> Please note the presence of extra json for {"id","createdAt","updatedAt"}
+      parameters:
+      - name: id
+        in: query
+        description: Mood Id
+        required: false
+        type: string
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+
+# [POST] mood
+    post:
+      tags:
+      - api/mood
+      summary: Add Mood
+      parameters:
+      - name: body
+        in: body
+        description: mood Data
+        required: true
+        schema:
+          $ref: '#/definitions/mood'
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+  
+# [PUT] /api/mood?id={id}
+    put:
+      tags:
+      - api/mood
+      summary: Update Mood By Id
+      parameters:
+      - name: id
+        in: query
+        description: mood Id
+        required: true
+        type: string
+      - name: body
+        in: body
+        description: mood Data
+        required: true
+        schema:
+          $ref: '#/definitions/mood'
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# [DELETE] mood/id
+    delete:
+      tags:
+      - api/mood
+      summary: Delete Mood By Id
+      parameters:
+      - name: id
+        in: query
+        description: Mood Id
+        required: true
+        type: string
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+          
+
+# [GET] measure
+  /api/measure:
+    get:
+      tags:
+      - api/measure
+      summary: Find Measure By Id or Return All Measures
+      description: This is a simple join table between moods and people.View the current measures in your browser [here](/api/measure). <br /><br/> Please note the presence of extra json for {"id","createdAt","updatedAt"}. You can use updatedAt as a time based measure for when the user made that measurement of their mood. 
+      parameters:
+      - name: id
+        in: query
+        description: Measure Id
+        required: false
+        type: string
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+
+# [POST] measure
+    post:
+      tags:
+      - api/measure
+      summary: Add Measure
+      parameters:
+      - name: body
+        in: body
+        description: measure Data
+        required: true
+        schema:
+          $ref: '#/definitions/measure'
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+  
+# [PUT] /api/measure?id={id}
+    put:
+      tags:
+      - api/measure
+      summary: Update Measure By Id
+      parameters:
+      - name: id
+        in: query
+        description: measure Id
+        required: true
+        type: string
+      - name: body
+        in: body
+        description: measure Data
+        required: true
+        schema:
+          $ref: '#/definitions/measure'
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# [DELETE] measure/id
+    delete:
+      tags:
+      - api/measure
+      summary: Delete Measure By Id
+      parameters:
+      - name: id
+        in: query
+        description: Measure Id
+        required: true
+        type: string
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+          
 # definitions
 definitions:
   user:
@@ -113,6 +293,30 @@ definitions:
       email:
         type: string
         description: user email
+
+  mood:
+    type: object
+    properties:
+      idx:
+        type: integer
+        description: sort index
+      label:
+        type: string
+        example: "ecstatic"
+        description: label for mood
+  
+  measure:
+    type: object
+    properties:
+      moodId:
+        type: string
+        example: "07fc1e4d-9042-45ea-9d46-2e88a320d5de"
+        description: id of a mood
+      userId:
+        type: string
+        example: "07fc1e4d-9042-45ea-9d46-2e88a320d5de"
+        description: id of a user
+
 
 schemes:
  - https

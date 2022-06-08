@@ -36,6 +36,7 @@
     "build": "swc src -d dist --source-maps --copy-files",
     "init": "prisma db push && prisma db seed",
     "dev": "NODE_ENV=development nodemon",
+    "docs": "./node_modules/swagger-to-static/index.js swagger.yml public",
     "dataproxy": "PRISMA_CLIENT_ENGINE_TYPE='dataproxy' prisma generate"
   }
 }
